@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 // enviar email
@@ -16,7 +17,11 @@ use Symfony\Component\Mailer\Transport;
 //http client
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\Form\CategoriaApiType;
-use Symfony\Component\HttpFoundation\Request;
+
+// filesystem
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
 
 class UtilidadesController extends AbstractController
 {
@@ -178,5 +183,22 @@ class UtilidadesController extends AbstractController
 
     }
     
+    #[Route('/utilidades/filesystem', name: 'utilidades_filesystem')]
+    public function filesystem(): Response
+    {
+        $filesystem = new Filesystem();
+        $ejemplo_mkdir = "/var/www/html/pruebas/project-symfony/midirectorio";
+        
+        if(!$filesystem->exists($ejemplo_mkdir)) {
+            $filesystem->mkdir($ejemplo_mkdir, 0700);    
+        } else {
+            $filesystem->copy('/var/www/html/pruebas/project-symfony/robot.png', $ejemplo_mkdir.'/robot.png');
+            $filesystem->rename($ejemplo_mkdir.'/robot.png', $ejemplo_mkdir.'/robot_modificado.png');
+            $filesystem->remove($ejemplo_mkdir.'/robot_modificado.png');
+        }
+        
+
+        return $this->render('utilidades/filesystem.html.twig');
+    }
 
 }
