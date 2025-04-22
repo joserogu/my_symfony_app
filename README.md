@@ -76,8 +76,8 @@ Este es un proyecto de aprendizaje personal, pero si deseas contribuir con ideas
 
 Puedes contactarme a través de:
 
-- GitHub: [TuUsuario](https://github.com/joserogu)
-- LinkedIn: [TuPerfilLinkedIn](https://www.linkedin.com/in/jos%C3%A9-manuel-rodr%C3%ADguez-guerrero-367a09234/)
+- GitHub: [Joserogu](https://github.com/joserogu)
+- LinkedIn: [José Manuel Rodríguez Guerrero](https://www.linkedin.com/in/jos%C3%A9-manuel-rodr%C3%ADguez-guerrero-367a09234/)
 
 ---
 
