@@ -13,8 +13,16 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\Transport;
 
+//http client
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
 class UtilidadesController extends AbstractController
 {
+    public function __construct(
+        private HttpClientInterface $client,
+    ) {
+    }
+
     #[Route('/utilidades', name: 'utilidades_inicio')]
     public function index(): Response
     {
@@ -45,5 +53,29 @@ class UtilidadesController extends AbstractController
         }
 
         return $this->render('utilidades/enviar_email.html.twig');
+    }
+
+    /* Usamos el programa de postman para acceder
+    https://www.api.tamila.cl/api/login
+    {
+    "correo": "info@tamila.cl",
+    "password": "p2gHNiENUw"
+    }
+    */
+    #[Route('/utilidades/api-rest', name: 'utilidades_api_rest')]
+    public function api_rest(): Response
+    {
+        $response = $this->client->request(
+            'GET',
+            'https://www.api.tamila.cl/api/categorias',
+            [
+                'headers' => [
+                    'Authorization'=> 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYsImlhdCI6MTc0NTMyNzY0MSwiZXhwIjoxNzQ3OTE5NjQxfQ.3zT-gUsUJeoqeEyOi9_Jf0i3Z4jTcBTnJKsjNLWBVYI',
+                ]
+            ]
+        );
+        $statusCode = $response->getStatusCode();
+
+        return $this->render('utilidades/api_rest.html.twig', compact('response'));
     }
 }
