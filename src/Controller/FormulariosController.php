@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class FormulariosController extends AbstractController
 {
@@ -156,9 +157,23 @@ class FormulariosController extends AbstractController
                 if (count($errors) > 0) {
                     return $this->render('formularios/upload.html.twig', ['form'=>$form, 'errors'=>$errors]);
                 }
-
+                $foto = $form->get('foto')->getData();
+                if ($foto) {
+                    $originalName = pathinfo($foto->getClientOriginalName(), PATHINFO_FILENAME);
+                    $newfilename = time().'.'.$foto->guessExtension();
+                    try {   
+                        $foto->move(
+                            $this->getParameter('fotos_directory'),
+                            $newfilename
+                        );
+                        $persona->setFoto($newfilename);
+                    } catch (FileException $e) {
+                        throw new \Exception("mensaje", 'Error al subir el archivo');
+                    }
+                    $persona->setFoto($newfilename);
+                }
                 $campos = $form->getData();
-                echo "Nombre: ".$campos->getNombre(). " | E-Mail: ".$campos->getEmail()." | Telefono: ".$campos->getTelefono();
+                echo "Nombre: ".$campos->getNombre(). " | E-Mail: ".$campos->getEmail()." | Telefono: ".$campos->getTelefono() . " | Pais: ".$campos->getPais()." | Foto: ".$campos->getFoto();
                 die();    
 
             } else {
