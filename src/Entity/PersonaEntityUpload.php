@@ -12,6 +12,16 @@ class PersonaEntityUpload
     #[Assert\NotBlank(message: 'El campo telefono no puede estar vacío')]
     protected $telefono;
     protected $pais;
+    #[Assert\File(
+        maxSize: '10M',
+        mimeTypes: [
+            'image/jpeg', 
+            'image/png', 
+            'image/jpg'
+        ],
+        maxSizeMessage: 'El tamaño máximo permitido es de 10MB',
+        mimeTypesMessage: 'El tipo de archivo no es válido. Debe ser una imagen (jpg, png, gif)'
+    )]
     protected $foto;
 
     public function getNombre(): String
