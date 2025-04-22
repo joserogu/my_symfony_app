@@ -51,6 +51,16 @@ Iré subiendo regularmente los avances conforme voy completando módulos y prác
 
 ---
 
+### 🚦 Cómo arrancar el servidor local
+
+Para iniciar el entorno de desarrollo de forma local y comenzar a trabajar con la aplicación Symfony, asegúrate de tener instalado el CLI de Symfony en tu máquina. Luego, ejecuta el siguiente comando desde la raíz del proyecto:
+
+```bash
+symfony server:start -d --allow-all-ip
+```
+
+---
+
 ## 📌 Objetivo del Repositorio
 
 El principal objetivo de este repositorio es servir tanto de guía de estudio como de portafolio personal de mi progreso en Symfony + AWS, con el fin de:
