@@ -1,0 +1,39 @@
+{% extends 'frontend.html.twig' %}
+
+{% block title %}Utilidades{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{path('home_inicio')}}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{path('utilidades_inicio')}}">Utilidades</a></li>
+            <li class="breadcrumb-item"><a href="{{path('utilidades_api_rest')}}">Consumir API Rest con HTTP Client</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Crear</li>
+        </ol>
+    </nav>
+
+    <h1>Crear</h1>
+    <div class="row">
+        <form action="{{ url('utilidades_api_rest_crear') }}" method="post">
+            {% for message in app.flashes('mensaje') %}
+
+                <div class="alert alert-{{ app.flashes('css')[0] }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+
+        <div class="form-group">
+            <label for="persona_entity_form_nombre">Nombre</label>
+            {{ form_widget(form.nombre, {"required": false, "attr": {
+                "placeholder": "Nombre",
+            }}) }}
+        </div>
+        <hr/>
+        <input type="hidden" name="token" value="{{ csrf_token('generico') }}" />
+        <input type="submit" value="Enviar" class="btn btn-primary" />
+    
+        </form>
+    </div>
+
+{% endblock %}

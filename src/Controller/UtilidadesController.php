@@ -15,6 +15,8 @@ use Symfony\Component\Mailer\Transport;
 
 //http client
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use App\Form\CategoriaApiType;
+use Symfony\Component\HttpFoundation\Request;
 
 class UtilidadesController extends AbstractController
 {
@@ -78,4 +80,42 @@ class UtilidadesController extends AbstractController
 
         return $this->render('utilidades/api_rest.html.twig', compact('response'));
     }
+
+    #[Route('/utilidades/api-rest/crear', name: 'utilidades_api_rest_crear')]
+    public function api_rest_crear(Request $request): Response
+    {
+        $form = $this->createForm(CategoriaApiType::class, null);
+        $form->handleRequest($request);
+        $submittedToken=$request->request->get('token');
+        if ($form->isSubmitted()) {
+            if($this->isCsrfTokenValid('generico', $submittedToken)) {
+                $campos = $form->getData();
+                $response = $this->client->request(
+                    'POST',
+                    'https://www.api.tamila.cl/api/categorias',
+                    [
+                        'json' => [
+                            'nombre' => ['nombre' => $campos['nombre']],
+                        ],
+                        'headers' => [
+                            'Authorization'=> 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYsImlhdCI6MTc0NTMyNzY0MSwiZXhwIjoxNzQ3OTE5NjQxfQ.3zT-gUsUJeoqeEyOi9_Jf0i3Z4jTcBTnJKsjNLWBVYI',
+                        ]
+                    ]
+                );
+                $this->addFlash('css', 'success');
+                $this->addFlash('mensaje', 'Formulario enviado correctamente');
+                return $this->redirectToRoute('utilidades_api_rest_crear');
+
+            } else {
+                $this->addFlash('css', 'warning');
+                $this->addFlash('mensaje', 'Ocurrió un error al enviar el formulario');
+                return $this->redirectToRoute('utilidades_api_rest_crear');    
+            }
+        } 
+
+        return $this->render('utilidades/api_rest_add.html.twig', compact('form'));
+    }
+
+
+
 }
