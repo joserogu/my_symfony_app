@@ -31,6 +31,11 @@
                 <tr>
                     <td>{{ dato.id }}</td>
                     <td>{{ dato.nombre }}</td>
+                    <td style="text-align:center;">
+                        <a href="{{path('utilidades_api_rest_editar', {id: dato.id})}}">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
     </table>

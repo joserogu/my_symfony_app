@@ -116,6 +116,48 @@ class UtilidadesController extends AbstractController
         return $this->render('utilidades/api_rest_add.html.twig', compact('form'));
     }
 
+    #[Route('/utilidades/api-rest/editar/{id}', name: 'utilidades_api_rest_editar')]
+    public function api_rest_editar(Request $request, int $id): Response
+    {
+        $datos = $this->client->request(
+            'GET',
+            'https://www.api.tamila.cl/api/categorias/'.$id,
+            [
+                'headers' => [
+                    'Authorization'=> 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYsImlhdCI6MTc0NTMyNzY0MSwiZXhwIjoxNzQ3OTE5NjQxfQ.3zT-gUsUJeoqeEyOi9_Jf0i3Z4jTcBTnJKsjNLWBVYI',
+                ]
+            ]
+        );
+        $form = $this->createForm(CategoriaApiType::class, null);
+        $form->handleRequest($request);
+        $submittedToken=$request->request->get('token');
+        if ($form->isSubmitted()) {
+            if($this->isCsrfTokenValid('generico', $submittedToken)) {
+                $campos = $form->getData();
+                $response = $this->client->request(
+                    'PUT',
+                    'https://www.api.tamila.cl/api/categorias/'.$id,
+                    [
+                        'json' => [
+                            'nombre' => ['nombre' => $campos['nombre']],
+                        ],
+                        'headers' => [
+                            'Authorization'=> 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYsImlhdCI6MTc0NTMyNzY0MSwiZXhwIjoxNzQ3OTE5NjQxfQ.3zT-gUsUJeoqeEyOi9_Jf0i3Z4jTcBTnJKsjNLWBVYI',
+                        ]
+                    ]
+                );
+                $this->addFlash('css', 'success');
+                $this->addFlash('mensaje', 'Formulario enviado correctamente');
+                return $this->redirectToRoute('utilidades_api_rest_editar', ['id'=>$id]);
 
+            } else {
+                $this->addFlash('css', 'warning');
+                $this->addFlash('mensaje', 'Ocurrió un error al enviar el formulario');
+                return $this->redirectToRoute('utilidades_api_rest_editar', ['id'=>$id]);    
+            }
+        } 
+
+        return $this->render('utilidades/api_rest_editar.html.twig', compact('form', 'datos'));
+    }
 
 }
