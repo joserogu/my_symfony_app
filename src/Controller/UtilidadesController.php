@@ -23,6 +23,9 @@ use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 
+// pdf
+use Dompdf\Dompdf;
+
 class UtilidadesController extends AbstractController
 {
     public function __construct(
@@ -200,5 +203,45 @@ class UtilidadesController extends AbstractController
 
         return $this->render('utilidades/filesystem.html.twig');
     }
+
+    #[Route('/utilidades/pdf', name: 'utilidades_pdf')]
+    public function pdf(): Response
+    {
+        return $this->render('utilidades/pdf.html.twig');
+    }
+
+    #[Route('/utilidades/pdf/generar', name: 'utilidades_pdf_generar')]
+    public function pdf_generar(): Response
+    {
+        //https://github.com/dompdf/dompdf
+        $data = [
+            'imageSrc' => $this->imageToBase64($this->getParameter('kernel.project_dir').'/public/images/robot.png'),
+            'nombre' => 'José Manuel',
+            'pais' => 'España',
+            'telefono' => '123 456 789',
+            'email' => 'josema@gmail.com',
+        ];
+        $html = $this->renderView('utilidades/pdf_generar.html.twig', $data);
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+
+        return new Response(
+            $dompdf->stream('resume', ['Attachment' => false]),
+            Response::HTTP_OK,
+            ['Content-Type' => 'application/pdf']
+        );
+    }
+
+    private function imageToBase64($path)
+    {
+        $path = $path;
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        return $base64;
+    }
+
+
 
 }

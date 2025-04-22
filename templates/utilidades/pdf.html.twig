@@ -1,0 +1,20 @@
+{% extends 'frontend.html.twig' %}
+
+{% block title %}Utilidades{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{path('home_inicio')}}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{path('utilidades_inicio')}}">Utilidades</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Crear PDF</li>
+            </ol>
+        </nav>
+
+    <h1>Crear PDF</h1>
+    <p>(composer require dompdf/dompdf)</p>
+
+    <a href="{{path('utilidades_pdf_generar')}}" class="btn btn-danger" 
+    target="_blank">Crear</a>
+
+{% endblock %}
