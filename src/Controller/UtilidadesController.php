@@ -72,7 +72,7 @@ class UtilidadesController extends AbstractController
             'https://www.api.tamila.cl/api/categorias',
             [
                 'headers' => [
-                    'Authorization'=> 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYsImlhdCI6MTc0NTMyNzY0MSwiZXhwIjoxNzQ3OTE5NjQxfQ.3zT-gUsUJeoqeEyOi9_Jf0i3Z4jTcBTnJKsjNLWBVYI',
+                    'Authorization'=> 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYsImlhdCI6MTc0NTMzMTk4NSwiZXhwIjoxNzQ3OTIzOTg1fQ.wvKcKy5CMZcM5Gwmudk5n5ROaKlwMBaj57VWf4x8gaA',
                 ]
             ]
         );
@@ -98,7 +98,7 @@ class UtilidadesController extends AbstractController
                             'nombre' => ['nombre' => $campos['nombre']],
                         ],
                         'headers' => [
-                            'Authorization'=> 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYsImlhdCI6MTc0NTMyNzY0MSwiZXhwIjoxNzQ3OTE5NjQxfQ.3zT-gUsUJeoqeEyOi9_Jf0i3Z4jTcBTnJKsjNLWBVYI',
+                            'Authorization'=> 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYsImlhdCI6MTc0NTMzMTk4NSwiZXhwIjoxNzQ3OTIzOTg1fQ.wvKcKy5CMZcM5Gwmudk5n5ROaKlwMBaj57VWf4x8gaA',
                         ]
                     ]
                 );
@@ -124,7 +124,7 @@ class UtilidadesController extends AbstractController
             'https://www.api.tamila.cl/api/categorias/'.$id,
             [
                 'headers' => [
-                    'Authorization'=> 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYsImlhdCI6MTc0NTMyNzY0MSwiZXhwIjoxNzQ3OTE5NjQxfQ.3zT-gUsUJeoqeEyOi9_Jf0i3Z4jTcBTnJKsjNLWBVYI',
+                    'Authorization'=> 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYsImlhdCI6MTc0NTMzMTk4NSwiZXhwIjoxNzQ3OTIzOTg1fQ.wvKcKy5CMZcM5Gwmudk5n5ROaKlwMBaj57VWf4x8gaA',
                 ]
             ]
         );
@@ -142,7 +142,7 @@ class UtilidadesController extends AbstractController
                             'nombre' => ['nombre' => $campos['nombre']],
                         ],
                         'headers' => [
-                            'Authorization'=> 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYsImlhdCI6MTc0NTMyNzY0MSwiZXhwIjoxNzQ3OTE5NjQxfQ.3zT-gUsUJeoqeEyOi9_Jf0i3Z4jTcBTnJKsjNLWBVYI',
+                            'Authorization'=> 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYsImlhdCI6MTc0NTMzMTk4NSwiZXhwIjoxNzQ3OTIzOTg1fQ.wvKcKy5CMZcM5Gwmudk5n5ROaKlwMBaj57VWf4x8gaA',
                         ]
                     ]
                 );
@@ -159,5 +159,24 @@ class UtilidadesController extends AbstractController
 
         return $this->render('utilidades/api_rest_editar.html.twig', compact('form', 'datos'));
     }
+
+    #[Route('/utilidades/api-rest/delete/{id}', name: 'utilidades_api_rest_delete')]
+    public function api_rest_delete(Request $request, int $id): Response
+    {
+        $this->client->request(
+            'DELETE',
+            'https://www.api.tamila.cl/api/categorias/'.$id,
+            [
+                'headers' => [
+                    'Authorization'=> 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYsImlhdCI6MTc0NTMzMTk4NSwiZXhwIjoxNzQ3OTIzOTg1fQ.wvKcKy5CMZcM5Gwmudk5n5ROaKlwMBaj57VWf4x8gaA',
+                ]
+            ]
+        );
+        $this->addFlash('css', 'success');
+        $this->addFlash('mensaje', 'Formulario enviado correctamente');
+        return $this->redirectToRoute('utilidades_api_rest');
+
+    }
+    
 
 }

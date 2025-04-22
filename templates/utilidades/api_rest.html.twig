@@ -3,42 +3,57 @@
 {% block title %}Utilidades{% endblock %}
 
 {% block body %}
-<nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{path('home_inicio')}}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{path('utilidades_inicio')}}">Utilidades</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Consumir API Rest con HTTP Client</li>
-        </ol>
-    </nav>
-<h1>Consumir API Rest con HTTP Client</h1>
-<p>(composer require symfony/http-client)</p>
-<p class="d-flex justify-content-end">
-    <a href="{{path('utilidades_api_rest_crear')}}" class="btn btn-success">
-        <i class="fas fa-check"></i>
-        Crear</a>
-</p>
-<div class="table-responsive">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for dato in response.toArray() %}
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{path('home_inicio')}}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{path('utilidades_inicio')}}">Utilidades</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Consumir API Rest con HTTP Client</li>
+            </ol>
+        </nav>
+
+    <h1>Consumir API Rest con HTTP Client</h1>
+    <p>(composer require symfony/http-client)</p>
+
+    {% for message in app.flashes('mensaje') %}
+        <div class="alert alert-{{ app.flashes('css')[0] }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+
+    <p class="d-flex justify-content-end">
+        <a href="{{path('utilidades_api_rest_crear')}}" class="btn btn-success">
+            <i class="fas fa-check"></i>
+            Crear</a>
+    </p>
+    
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>{{ dato.id }}</td>
-                    <td>{{ dato.nombre }}</td>
-                    <td style="text-align:center;">
-                        <a href="{{path('utilidades_api_rest_editar', {id: dato.id})}}">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                    </td>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
                 </tr>
-            {% endfor %}
-    </table>
-</div>
+            </thead>
+            <tbody>
+                {% for dato in response.toArray() %}
+                    <tr>
+                        <td>{{ dato.id }}</td>
+                        <td>{{ dato.nombre }}</td>
+                        <td style="text-align:center;">
+                            <a href="{{path('utilidades_api_rest_editar', {id: dato.id})}}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="javascript:void(0);" onclick="confirmaAlert
+                            ('Realmente desea eliminar este registro?', '{{path('utilidades_api_rest_delete',
+                            {id: dato.id}) }}')">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}
