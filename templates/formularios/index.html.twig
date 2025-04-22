@@ -1,0 +1,25 @@
+{% extends 'frontend.html.twig' %}
+
+{% block title %}Formularios{% endblock %}
+
+{% block body %}
+    <h3>Formularios</h3>
+    <p>(composer require symfony/form)</p>
+    <ul>
+        <li>
+            <a href="{{path('formularios_simple')}}">Formulario simple</a>
+        </li>
+        <li>
+            <a href="{{path('formularios_entity')}}">Formulario entity</a>
+        </li>
+        <li>
+            <a href="{{path('formularios_type_form')}}">Formulario type form</a>
+        </li>
+        <li>
+            <a href="{{path('formularios_validation')}}">Formulario validación</a>
+        </li>
+        <li>
+            <a href="{{path('formularios_upload')}}">Formulario upload</a>
+        </li>
+    </ul>
+{% endblock %}
