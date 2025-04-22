@@ -24,3 +24,67 @@ El curso cubre diversos aspectos del desarrollo backend profesional utilizando S
 
 La organización del repositorio está diseñada para facilitar el seguimiento del curso, y puede dividirse de la siguiente forma:
 
+
+---
+
+## 🚀 Tecnologías Utilizadas
+
+- **Symfony** (PHP 8+)
+- **Twig** como motor de plantillas
+- **Doctrine ORM**
+- **MySQL / PostgreSQL** según práctica
+- **AWS EC2, RDS, S3** para el despliegue en la nube
+- **Composer** para gestión de dependencias
+- **PHPUnit** para testing
+- **Git** para control de versiones
+
+---
+
+## 🧪 Progreso y Avances
+
+Iré subiendo regularmente los avances conforme voy completando módulos y prácticas del curso. También incluiré:
+
+- Ejercicios prácticos desarrollados
+- Apuntes y resúmenes personales
+- Scripts de configuración útiles
+- Soluciones a errores o problemas comunes
+
+---
+
+## 📌 Objetivo del Repositorio
+
+El principal objetivo de este repositorio es servir tanto de guía de estudio como de portafolio personal de mi progreso en Symfony + AWS, con el fin de:
+
+- Consolidar los conocimientos adquiridos en un entorno real
+- Aplicar buenas prácticas de desarrollo profesional
+- Tener una base para futuros proyectos Symfony
+- Compartir con otros estudiantes o desarrolladores interesados
+
+---
+
+## ⚠️ Notas Importantes
+
+- Este repositorio está en **constante desarrollo** y será actualizado a medida que avance el curso.
+- Algunas configuraciones relacionadas con AWS pueden contener datos sensibles (acceso a servicios), por lo que ciertos archivos estarán excluidos mediante `.gitignore`.
+- No se recomienda usar este repositorio directamente en producción sin antes adaptarlo y revisarlo cuidadosamente.
+
+---
+
+## 🤝 Contribuciones y Contacto
+
+Este es un proyecto de aprendizaje personal, pero si deseas contribuir con ideas, correcciones o mejoras, ¡estaré encantado de recibir tu colaboración!
+
+Puedes contactarme a través de:
+
+- GitHub: [TuUsuario](https://github.com/joserogu)
+- LinkedIn: [TuPerfilLinkedIn](https://www.linkedin.com/in/jos%C3%A9-manuel-rodr%C3%ADguez-guerrero-367a09234/)
+
+---
+
+## 📅 Última actualización
+
+> `22 de abril de 2025`
+
+---
+
+¡Gracias por visitar este repositorio! 🚀
